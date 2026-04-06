@@ -22,9 +22,12 @@ public class LoginTest extends BaseTest {
         driver.findElement(By.id("password")).sendKeys("secret_sauce");
         driver.findElement(By.id("login-button")).click();
 
-        boolean isErrorMsgDisplayed =
-                driver.findElement(By.xpath("//*[@data-test='error']")).isDisplayed();
+        By errorMessage = By.xpath("//*[@data-test='error']");
 
+        boolean isErrorMsgDisplayed = driver.findElement(errorMessage).isDisplayed();
         assertTrue(isErrorMsgDisplayed, "The error message fails to appear");
+
+        String errorText = driver.findElement(errorMessage).getText();
+        assertEquals(errorText, "Epic sadface: Sorry, this user has been locked out.");
     }
 }
