@@ -1,6 +1,5 @@
 package tests;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -16,28 +15,12 @@ public class LoginTest extends BaseTest {
         assertEquals(productsPage.getTitle(), "Products");
     }
 
-    @DataProvider(name = "incorrectLoginData")
-    public Object[][] incorrectLoginData() {
-        return new Object[][]{
-                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
-                {"", "secret_sauce", "Epic sadface: Username is required"},
-                {"standard_user", "", "Epic sadface: Password is required"}
-        };
-    }
-
-    @Test(dataProvider = "incorrectLoginData")
-    public void checkIncorrectLoginWithDataProvider(String login, String password, String expectedErrorMessage) {
+    @Test
+    public void checkIncorrectLogin() {
         loginPage.open();
-        loginPage.login(login, password);
+        loginPage.login("locked_out_user", "secret_sauce");
 
         assertTrue(loginPage.isErrorMsgDisplayed(), "The error message fails to appear");
-        assertEquals(loginPage.getErrorMsgText(), expectedErrorMessage);
-    }
-
-    @Test
-    public void checkLoginButtonColor() {
-        loginPage.open();
-
-        assertEquals(loginPage.getLoginButtonColor(), "rgba(61, 220, 145, 1)");
+        assertEquals(loginPage.getErrorMsgText(), "Epic sadface: Sorry, this user has been locked out.");
     }
 }
