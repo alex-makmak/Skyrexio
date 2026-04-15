@@ -3,19 +3,21 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends BasePage {
+public class LoginPage {
+
+    private final WebDriver driver;
 
     private final By userField = By.id("user-name");
     private final By passwordField = By.id("password");
     private final By submitButton = By.id("login-button");
-    private final By errorMessage = By.cssSelector(DATA_TEST_PATTERN.formatted("error"));
+    private final By errorMessage = By.xpath("//*[@data-test='error']");
 
     public LoginPage(WebDriver driver) {
-        super(driver);
+        this.driver = driver;
     }
 
     public void open() {
-        driver.get(BASE_URL);
+        driver.get("https://www.saucedemo.com/");
     }
 
     public void login(String login, String password) {
@@ -30,9 +32,5 @@ public class LoginPage extends BasePage {
 
     public String getErrorMsgText() {
         return driver.findElement(errorMessage).getText();
-    }
-
-    public String getLoginButtonColor() {
-        return driver.findElement(submitButton).getCssValue("background-color");
     }
 }
