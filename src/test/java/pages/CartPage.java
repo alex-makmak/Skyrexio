@@ -2,11 +2,15 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartPage extends BasePage {
 
-    private final By pageTitle = By.cssSelector("[data-test='title']");
-    private final By backpackItemName = By.cssSelector("[data-test='inventory-item-name']");
+    private final By pageTitle = By.cssSelector(DATA_TEST_PATTERN.formatted("title"));
+    private final By productNames = By.cssSelector(DATA_TEST_PATTERN.formatted("inventory-item-name"));
 
     public CartPage(WebDriver driver) {
         super(driver);
@@ -16,7 +20,14 @@ public class CartPage extends BasePage {
         return driver.findElement(pageTitle).getText();
     }
 
-    public String getItemName() {
-        return driver.findElement(backpackItemName).getText();
+    public List<String> getProductNames() {
+        List<WebElement> allProducts = driver.findElements(productNames);
+        List<String> names = new ArrayList<>();
+
+        for (WebElement product : allProducts) {
+            names.add(product.getText());
+        }
+
+        return names;
     }
 }

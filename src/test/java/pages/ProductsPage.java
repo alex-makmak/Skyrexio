@@ -5,10 +5,14 @@ import org.openqa.selenium.WebDriver;
 
 public class ProductsPage extends BasePage {
 
-    private final By pageTitle = By.cssSelector("[data-test='title']");
-    private final By addBackpackButton = By.id("add-to-cart-sauce-labs-backpack");
-    private final By cartBadge = By.cssSelector("[data-test='shopping-cart-badge']");
-    private final By cartLink = By.cssSelector("[data-test='shopping-cart-link']");
+    private static final String ADD_TO_CART_BUTTON_PATTERN =
+            "//div[text()='%s']" +
+                    "/ancestor::div[@class='inventory_item']" +
+                    "//button[text()='Add to cart']";
+
+    private final By pageTitle = By.cssSelector(DATA_TEST_PATTERN.formatted("title"));
+    private final By cartBadge = By.cssSelector(DATA_TEST_PATTERN.formatted("shopping-cart-badge"));
+    private final By cartLink = By.cssSelector(DATA_TEST_PATTERN.formatted("shopping-cart-link"));
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -18,8 +22,9 @@ public class ProductsPage extends BasePage {
         return driver.findElement(pageTitle).getText();
     }
 
-    public void addBackpackToCart() {
-        driver.findElement(addBackpackButton).click();
+    public void addProductToCart(String productName) {
+        By addToCartButton = By.xpath(ADD_TO_CART_BUTTON_PATTERN.formatted(productName));
+        driver.findElement(addToCartButton).click();
     }
 
     public String getCartBadgeText() {
