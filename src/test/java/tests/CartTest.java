@@ -39,7 +39,6 @@ public class CartTest extends BaseTest {
     public void checkTwoAddedProductsAreDisplayedInCart() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.addProductToCart("Sauce Labs Bike Light");
 
