@@ -40,4 +40,11 @@ public class LoginTest extends BaseTest {
 
         assertEquals(loginPage.getLoginButtonColor(), "rgba(61, 220, 145, 1)");
     }
+
+    @Test
+    public void checkOpenCartWithoutLogin() {
+        loginPage.openCartPage();
+
+        assertTrue(loginPage.isErrorMsgDisplayed(), "The error message fails to appear");
+    }
 }

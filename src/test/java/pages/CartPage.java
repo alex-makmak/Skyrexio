@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +18,20 @@ public class CartPage extends BasePage {
     }
 
     public String getTitle() {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
         return driver.findElement(pageTitle).getText();
     }
 
     public List<String> getProductNames() {
-        List<WebElement> allProducts = driver.findElements(productNames);
-        List<String> names = new ArrayList<>();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
 
-        for (WebElement product : allProducts) {
-            names.add(product.getText());
+        List<WebElement> products = driver.findElements(productNames);
+        List<String> productTexts = new ArrayList<>();
+
+        for (WebElement product : products) {
+            productTexts.add(product.getText());
         }
 
-        return names;
+        return productTexts;
     }
 }
