@@ -12,7 +12,7 @@ public class CartTest extends BaseTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProductToCart("Sauce Labs Backpack");
 
-        assertEquals(productsPage.getCartBadgeText(), "1");
+        assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "1");
     }
 
     @Test
@@ -20,7 +20,7 @@ public class CartTest extends BaseTest {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
 
-        productsPage.openCart();
+        productsPage.getNavigationPanel().openCart();
 
         assertEquals(cartPage.getTitle(), "Your Cart");
     }
@@ -30,7 +30,7 @@ public class CartTest extends BaseTest {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.openCart();
+        productsPage.getNavigationPanel().openCart();
 
         assertEquals(cartPage.getProductNames().get(0), "Sauce Labs Backpack");
     }
@@ -42,9 +42,9 @@ public class CartTest extends BaseTest {
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.addProductToCart("Sauce Labs Bike Light");
 
-        assertEquals(productsPage.getCartBadgeText(), "2");
+        assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "2");
 
-        productsPage.openCart();
+        productsPage.getNavigationPanel().openCart();
 
         assertEquals(cartPage.getProductNames().size(), 2);
         assertEquals(cartPage.getProductNames().get(0), "Sauce Labs Backpack");

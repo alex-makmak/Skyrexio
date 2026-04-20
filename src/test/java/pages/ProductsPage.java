@@ -7,15 +7,15 @@ public class ProductsPage extends BasePage {
 
     private static final String ADD_TO_CART_BUTTON_PATTERN =
             "//div[text()='%s']" +
-            "/ancestor::div[@class='inventory_item']" +
-            "//button[text()='Add to cart']";
+                    "/ancestor::div[@class='inventory_item']" +
+                    "//button[text()='Add to cart']";
 
     private final By pageTitle = By.cssSelector(DATA_TEST_PATTERN.formatted("title"));
-    private final By cartBadge = By.cssSelector(DATA_TEST_PATTERN.formatted("shopping-cart-badge"));
-    private final By cartLink = By.cssSelector(DATA_TEST_PATTERN.formatted("shopping-cart-link"));
+    private final NavigationPanel navigationPanel;
 
     public ProductsPage(WebDriver driver) {
         super(driver);
+        this.navigationPanel = new NavigationPanel(driver);
     }
 
     public String getTitle() {
@@ -27,11 +27,7 @@ public class ProductsPage extends BasePage {
         driver.findElement(addToCartButton).click();
     }
 
-    public String getCartBadgeText() {
-        return driver.findElement(cartBadge).getText();
-    }
-
-    public void openCart() {
-        driver.findElement(cartLink).click();
+    public NavigationPanel getNavigationPanel() {
+        return navigationPanel;
     }
 }

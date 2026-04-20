@@ -35,4 +35,8 @@ public class LoginPage extends BasePage {
     public String getLoginButtonColor() {
         return driver.findElement(submitButton).getCssValue("background-color");
     }
+
+    public void openCartPage() {
+        driver.get(BASE_URL + "cart.html");
+    }
 }
