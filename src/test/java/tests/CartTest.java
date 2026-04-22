@@ -1,5 +1,6 @@
 package tests;
 
+import models.UserFactory;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
@@ -9,7 +10,7 @@ public class CartTest extends BaseTest {
     @Test
     public void checkAddProductToCart() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.getStandardUser());
         productsPage.addProductToCart("Sauce Labs Backpack");
 
         assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "1");
@@ -18,7 +19,7 @@ public class CartTest extends BaseTest {
     @Test
     public void checkOpenCart() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.getStandardUser());
 
         productsPage.getNavigationPanel().openCart();
 
@@ -28,7 +29,7 @@ public class CartTest extends BaseTest {
     @Test
     public void checkAddedProductIsDisplayedInCart() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.getStandardUser());
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.getNavigationPanel().openCart();
 
@@ -38,7 +39,7 @@ public class CartTest extends BaseTest {
     @Test
     public void checkTwoAddedProductsAreDisplayedInCart() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.getStandardUser());
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.addProductToCart("Sauce Labs Bike Light");
 

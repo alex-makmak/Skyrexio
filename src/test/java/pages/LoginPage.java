@@ -1,5 +1,7 @@
 package pages;
 
+import models.User;
+import org.jspecify.annotations.NonNull;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -22,6 +24,10 @@ public class LoginPage extends BasePage {
         driver.findElement(userField).sendKeys(login);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(submitButton).click();
+    }
+
+    public void login(@NonNull User user) {
+        login(user.getUsername(), user.getPassword());
     }
 
     public boolean isErrorMsgDisplayed() {
