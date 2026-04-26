@@ -1,7 +1,9 @@
 package tests;
 
+import models.UserFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import utils.PropertyReader;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
@@ -11,7 +13,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void checkLogin() {
         loginPage.open();
-        loginPage.login("standard_user", "secret_sauce");
+        loginPage.login(UserFactory.getStandardUser());
 
         assertEquals(productsPage.getTitle(), "Products");
     }
@@ -19,9 +21,21 @@ public class LoginTest extends BaseTest {
     @DataProvider(name = "incorrectLoginData")
     public Object[][] incorrectLoginData() {
         return new Object[][]{
-                {"locked_out_user", "secret_sauce", "Epic sadface: Sorry, this user has been locked out."},
-                {"", "secret_sauce", "Epic sadface: Username is required"},
-                {"standard_user", "", "Epic sadface: Password is required"}
+                {
+                        PropertyReader.getProperty("saucedemo.locked_user"),
+                        PropertyReader.getProperty("saucedemo.password"),
+                        "Epic sadface: Sorry, this user has been locked out."
+                },
+                {
+                        "",
+                        PropertyReader.getProperty("saucedemo.password"),
+                        "Epic sadface: Username is required"
+                },
+                {
+                        PropertyReader.getProperty("saucedemo.incorrect_user"),
+                        "",
+                        "Epic sadface: Password is required"
+                }
         };
     }
 
