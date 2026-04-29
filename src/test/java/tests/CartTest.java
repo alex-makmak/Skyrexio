@@ -1,13 +1,24 @@
 package tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import models.UserFactory;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+@Epic("SauceDemo")
+@Feature("Корзина")
+@Owner("Alex")
 public class CartTest extends BaseTest {
 
-    @Test
+    @Story("Добавление товара в корзину")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Проверка добавления товара в корзину")
     public void checkAddProductToCart() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
@@ -16,7 +27,9 @@ public class CartTest extends BaseTest {
         assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "1");
     }
 
-    @Test
+    @Story("Открытие корзины")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Проверка открытия корзины")
     public void checkOpenCart() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
@@ -26,7 +39,9 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getTitle(), "Your Cart");
     }
 
-    @Test
+    @Story("Отображение товара в корзине")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Проверка отображения добавленного товара в корзине")
     public void checkAddedProductIsDisplayedInCart() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
@@ -36,7 +51,9 @@ public class CartTest extends BaseTest {
         assertEquals(cartPage.getProductNames().get(0), "Sauce Labs Backpack");
     }
 
-    @Test
+    @Story("Отображение нескольких товаров в корзине")
+    @Severity(SeverityLevel.NORMAL)
+    @Test(description = "Проверка отображения двух добавленных товаров в корзине")
     public void checkTwoAddedProductsAreDisplayedInCart() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
