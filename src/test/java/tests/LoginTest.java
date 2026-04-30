@@ -1,5 +1,11 @@
 package tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import models.UserFactory;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -8,9 +14,14 @@ import utils.PropertyReader;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
+@Epic("SauceDemo")
+@Feature("Авторизация")
+@Owner("Alex")
 public class LoginTest extends BaseTest {
 
-    @Test
+    @Story("Успешная авторизация")
+    @Severity(SeverityLevel.BLOCKER)
+    @Test(description = "Проверка успешной авторизации")
     public void checkLogin() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
@@ -39,7 +50,12 @@ public class LoginTest extends BaseTest {
         };
     }
 
-    @Test(dataProvider = "incorrectLoginData")
+    @Story("Ошибки при некорректной авторизации")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(
+            dataProvider = "incorrectLoginData",
+            description = "Проверка ошибок при некорректной авторизации"
+    )
     public void checkIncorrectLoginWithDataProvider(String login, String password, String expectedErrorMessage) {
         loginPage.open();
         loginPage.login(login, password);
@@ -48,14 +64,18 @@ public class LoginTest extends BaseTest {
         assertEquals(loginPage.getErrorMsgText(), expectedErrorMessage);
     }
 
-    @Test
+    @Story("Внешний вид формы авторизации")
+    @Severity(SeverityLevel.MINOR)
+    @Test(description = "Проверка цвета кнопки Login")
     public void checkLoginButtonColor() {
         loginPage.open();
 
         assertEquals(loginPage.getLoginButtonColor(), "rgba(61, 220, 145, 1)");
     }
 
-    @Test
+    @Story("Доступ к корзине без авторизации")
+    @Severity(SeverityLevel.CRITICAL)
+    @Test(description = "Проверка открытия корзины без авторизации")
     public void checkOpenCartWithoutLogin() {
         loginPage.openCartPage();
 

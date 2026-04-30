@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,17 +17,20 @@ public class CheckoutPage extends BasePage {
         super(driver);
     }
 
+    @Step("Смотрим заголовок страницы оформления заказа")
     public String getTitle() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(pageTitle));
         return driver.findElement(pageTitle).getText();
     }
 
+    @Step("Заполняем данные покупателя")
     public void fillCheckoutForm(String firstName, String lastName, String postalCode) {
         driver.findElement(firstNameField).sendKeys(firstName);
         driver.findElement(lastNameField).sendKeys(lastName);
         driver.findElement(postalCodeField).sendKeys(postalCode);
     }
 
+    @Step("Переходим к проверке заказа")
     public void continueCheckout() {
         driver.findElement(continueButton).click();
     }

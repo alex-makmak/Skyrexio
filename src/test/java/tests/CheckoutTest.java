@@ -1,13 +1,24 @@
 package tests;
 
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Owner;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import models.UserFactory;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
+@Epic("SauceDemo")
+@Feature("Оформление заказа")
 public class CheckoutTest extends BaseTest {
 
-    @Test
+    @Story("Успешное оформление заказа")
+    @Severity(SeverityLevel.CRITICAL)
+    @Owner("Alex")
+    @Test(description = "Проверка успешного оформления заказа")
     public void checkSuccessfulCheckout() {
         loginPage.open();
         loginPage.login(UserFactory.getStandardUser());
