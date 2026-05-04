@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -23,10 +24,11 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     @Test(description = "Проверка успешной авторизации")
     public void checkLogin() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
 
-        assertEquals(productsPage.getTitle(), "Products");
+        assertEquals(productsPage.getTitle(), TitleNaming.PRODUCTS.getDisplayName());
     }
 
     @DataProvider(name = "incorrectLoginData")
@@ -57,8 +59,9 @@ public class LoginTest extends BaseTest {
             description = "Проверка ошибок при некорректной авторизации"
     )
     public void checkIncorrectLoginWithDataProvider(String login, String password, String expectedErrorMessage) {
-        loginPage.open();
-        loginPage.login(login, password);
+        loginPage
+                .open()
+                .login(login, password);
 
         assertTrue(loginPage.isErrorMsgDisplayed(), "The error message fails to appear");
         assertEquals(loginPage.getErrorMsgText(), expectedErrorMessage);
