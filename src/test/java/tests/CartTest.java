@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -20,8 +21,10 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Проверка добавления товара в корзину")
     public void checkAddProductToCart() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
+
         productsPage.addProductToCart("Sauce Labs Backpack");
 
         assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "1");
@@ -31,20 +34,23 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Проверка открытия корзины")
     public void checkOpenCart() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
 
         productsPage.getNavigationPanel().openCart();
 
-        assertEquals(cartPage.getTitle(), "Your Cart");
+        assertEquals(cartPage.getTitle(), TitleNaming.YOUR_CART.getDisplayName());
     }
 
     @Story("Отображение товара в корзине")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Проверка отображения добавленного товара в корзине")
     public void checkAddedProductIsDisplayedInCart() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
+
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.getNavigationPanel().openCart();
 
@@ -55,10 +61,13 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     @Test(description = "Проверка отображения двух добавленных товаров в корзине")
     public void checkTwoAddedProductsAreDisplayedInCart() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
-        productsPage.addProductToCart("Sauce Labs Backpack");
-        productsPage.addProductToCart("Sauce Labs Bike Light");
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
+
+        productsPage
+                .addProductToCart("Sauce Labs Backpack")
+                .addProductToCart("Sauce Labs Bike Light");
 
         assertEquals(productsPage.getNavigationPanel().getCartBadgeText(), "2");
 

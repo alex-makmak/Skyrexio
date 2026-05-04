@@ -1,5 +1,6 @@
 package tests;
 
+import enums.TitleNaming;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Owner;
@@ -20,20 +21,22 @@ public class CheckoutTest extends BaseTest {
     @Owner("Alex")
     @Test(description = "Проверка успешного оформления заказа")
     public void checkSuccessfulCheckout() {
-        loginPage.open();
-        loginPage.login(UserFactory.getStandardUser());
+        loginPage
+                .open()
+                .login(UserFactory.getStandardUser());
 
         productsPage.addProductToCart("Sauce Labs Backpack");
         productsPage.getNavigationPanel().openCart();
 
         cartPage.checkout();
 
-        assertEquals(checkoutPage.getTitle(), "Checkout: Your Information");
+        assertEquals(checkoutPage.getTitle(), TitleNaming.CHECKOUT_YOUR_INFORMATION.getDisplayName());
 
-        checkoutPage.fillCheckoutForm("Ivan", "Ivanov", "12345");
-        checkoutPage.continueCheckout();
+        checkoutPage
+                .fillCheckoutForm("Ivan", "Ivanov", "12345")
+                .continueCheckout();
 
-        assertEquals(checkoutOverviewPage.getTitle(), "Checkout: Overview");
+        assertEquals(checkoutOverviewPage.getTitle(), TitleNaming.CHECKOUT_OVERVIEW.getDisplayName());
         assertEquals(checkoutOverviewPage.getPaymentInformationLabelText(), "Payment Information:");
 
         checkoutOverviewPage.finishCheckout();

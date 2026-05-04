@@ -25,9 +25,11 @@ public class ProductsPage extends BasePage {
     }
 
     @Step("Кладём товар в корзину: {productName}")
-    public void addProductToCart(String productName) {
+    public ProductsPage addProductToCart(String productName) {
         By addToCartButton = By.xpath(ADD_TO_CART_BUTTON_PATTERN.formatted(productName));
         driver.findElement(addToCartButton).click();
+
+        return this;
     }
 
     public NavigationPanel getNavigationPanel() {
