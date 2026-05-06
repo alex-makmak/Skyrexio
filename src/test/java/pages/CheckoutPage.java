@@ -24,14 +24,18 @@ public class CheckoutPage extends BasePage {
     }
 
     @Step("Заполняем данные покупателя")
-    public void fillCheckoutForm(String firstName, String lastName, String postalCode) {
+    public CheckoutPage fillCheckoutForm(String firstName, String lastName, String postalCode) {
         driver.findElement(firstNameField).sendKeys(firstName);
         driver.findElement(lastNameField).sendKeys(lastName);
         driver.findElement(postalCodeField).sendKeys(postalCode);
+
+        return this;
     }
 
     @Step("Переходим к проверке заказа")
-    public void continueCheckout() {
+    public CheckoutPage continueCheckout() {
         driver.findElement(continueButton).click();
+
+        return this;
     }
 }

@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -25,7 +26,7 @@ public class BaseTest {
 
     @Parameters({"browser"})
     @BeforeMethod
-    public void setUp(@Optional("chrome") String browser) {
+    public void setUp(@Optional("chrome") String browser, ITestContext context) {
         if (browser.equalsIgnoreCase("chrome")) {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--incognito");
@@ -36,6 +37,8 @@ public class BaseTest {
         } else {
             throw new IllegalArgumentException("Unsupported browser: " + browser);
         }
+
+        context.setAttribute("driver", driver);
 
         driver.manage().window().maximize();
 

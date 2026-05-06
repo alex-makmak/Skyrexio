@@ -18,20 +18,26 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Открываем страницу авторизации")
-    public void open() {
+    public LoginPage open() {
         driver.get(BASE_URL);
+
+        return this;
     }
 
     @Step("Вводим логин и пароль для пользователя: {login}")
-    public void login(String login, String password) {
+    public LoginPage login(String login, String password) {
         driver.findElement(userField).sendKeys(login);
         driver.findElement(passwordField).sendKeys(password);
         driver.findElement(submitButton).click();
+
+        return this;
     }
 
     @Step("Авторизуемся под пользователем")
-    public void login(@NonNull User user) {
+    public LoginPage login(@NonNull User user) {
         login(user.getUsername(), user.getPassword());
+
+        return this;
     }
 
     @Step("Проверяем, что сообщение об ошибке отображается")
@@ -50,7 +56,9 @@ public class LoginPage extends BasePage {
     }
 
     @Step("Пробуем открыть корзину без авторизации")
-    public void openCartPage() {
+    public LoginPage openCartPage() {
         driver.get(BASE_URL + "cart.html");
+
+        return this;
     }
 }
