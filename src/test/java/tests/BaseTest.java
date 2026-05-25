@@ -31,6 +31,13 @@ public class BaseTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--incognito");
 
+            if (System.getenv("GITHUB_ACTIONS") != null) {
+                options.addArguments("--headless=new");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--window-size=1920,1080");
+            }
+
             driver = new ChromeDriver(options);
         } else if (browser.equalsIgnoreCase("edge")) {
             driver = new EdgeDriver();
@@ -40,7 +47,9 @@ public class BaseTest {
 
         context.setAttribute("driver", driver);
 
-        driver.manage().window().maximize();
+        if (System.getenv("GITHUB_ACTIONS") == null) {
+            driver.manage().window().maximize();
+        }
 
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
